@@ -2,14 +2,45 @@
 clear
 
 function setup_project {
+    echo ""
     echo "----- S E T U P - P R O J E C T -----"
     echo ""
 }
 
 function next_step {
+        echo ""
         read -p "Press Enter to continue generation..."
         clear
 }
+
+function install_dependencies {
+    sudo apt install -y net-tools 
+}
+
+function status_check {
+    clear
+    echo "project has been initialized"
+
+    echo ""
+    echo "----- E N V -----"
+    echo ""
+
+    cat .env.example
+
+    echo ""
+    echo "----- C R O N J O B S -----"
+    echo ""
+
+    echo "All background tasks are now running"
+    echo ""
+    echo "to see the list of running tasks, run : crontab -l "
+}
+
+# Setup
+    setup_project
+    echo "    --- L I B R A R I E S ---"
+    install_dependencies
+    next_step
 
 # Devices
     setup_project
@@ -54,4 +85,10 @@ function next_step {
         #.catch()
     next_step
 
+# Automate the jobs
+    setup_project
+    echo "    --- C R O N - J O B S ---"
+    next_step
+
+status_check
 echo ""

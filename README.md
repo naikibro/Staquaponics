@@ -61,3 +61,35 @@ Then copy your public key into your video server
 ```sh
 ssh-copy-id username@your_vps_ip
 ```
+
+### Run the setup configuration script
+
+Launch the setup script
+
+```sh
+# chmod +x setup.sh
+./setup.sh
+```
+
+Follow the instructions to set the follownig [env variables](./.env.example):
+
+```sh
+# Project description
+SYSTEM_NAME="AQUAPONICS"
+
+# Devices
+CAMERA_ADRESS=""
+CAMERA_TYPE=""
+NUMBER_OF_CAMERAS=1
+NUMBER_OF_DEVICES=1
+
+# Files and folders structures
+IMAGES_FOLDER="~/$SYSTEM_NAME/images"
+VIDEOS_FOLDER="~/$SYSTEM_NAME/videos"
+SIZE_HANDLING_LOG="~/$SYSTEM_NAME/logs"
+BACKUP_FOLDER=""
+
+# Servers and connections
+LOCAL_NETWORK=""
+VIDEO_SERVER_URL=""
+```
