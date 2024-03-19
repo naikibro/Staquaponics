@@ -1,0 +1,36 @@
+- name: Setup Raspberry Pi with Python and OpenCV
+  hosts: raspberry_pis
+  become: yes
+  tasks:
+    - name: Update and upgrade apt packages
+      apt:
+        update_cache: yes
+        upgrade: yes
+
+    - name: Install Python3 and pip
+      apt:
+        name: 
+          - python3
+          - python3-pip
+        state: present
+
+    - name: Install dependencies for OpenCV
+      apt:
+        name: 
+          - libjpeg-dev
+          - libtiff5-dev
+          - libjasper-dev
+          - libpng12-dev
+          - libavcodec-dev
+          - libavformat-dev
+          - libswscale-dev
+          - libv4l-dev
+          - libxvidcore-dev
+          - libx264-dev
+          - qt4-dev-tools
+          - libatlas-base-dev
+        state: present
+
+    - name: Install OpenCV Python library
+      pip:
+        name: opencv-python-headless
