@@ -61,3 +61,27 @@ Then copy your public key into your video server
 ```sh
 ssh-copy-id username@your_vps_ip
 ```
+
+### Build or fetch the armv7 docker cloudflare image ( optionnal )
+```sh
+git clone -b feature/support-armhf git@github.com:jeankhawand/cloudflared.git 
+```
+and then cd into project dir and run the following command:
+
+
+```sh
+docker build . -t junni/cloudflared:arm
+```
+
+## 3 - Configure your Cloudflare tunnel
+Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=ey4u7OUAF3c)
+
+```sh
+docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
+```
+if your raspberry pi is on armv7 architecture
+```sh
+docker run -d junni/cloudflared:arm tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
+```
+
+

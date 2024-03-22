@@ -1,0 +1,21 @@
+version: '3'
+
+services:
+  cloudflared:
+    image: junni/cloudflared:arm
+    command: tunnel --no-autoupdate run --token ${CLOUDFLARE_TUNNEL_TOKEN}
+    restart: always
+    env_file:
+      - .env
+
+  drupal:
+    image: drupal
+    ports:
+      - "8080:80"
+    restart: always
+
+# Staquaponics - a simple Raspberry pi based timelapse monitoring solution for Aquaponics
+
+# This project bundles a bunch of programs and scripts that form a simple and open-source solution to monitor any Aquaponic facility with USB based cameras and Raspberry pi
+
+# ---
