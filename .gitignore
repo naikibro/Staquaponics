@@ -1,8 +1,8 @@
 .env
 .env.local
 node_modules
-images/*
-videos/*
+images/*.*
+videos/*.*
 logs
 logs.*
 *.log
