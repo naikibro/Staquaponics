@@ -14,7 +14,7 @@ This project bundles a bunch of programs and scripts that form a simple and open
 
 **Languages, tools and frameworks:**
 
-- **Ansible :** to automatize the deployment of the environement
+
 - **Docker compose :** to containerize the deployments of the
 - Python
 - OpenCV
@@ -45,6 +45,24 @@ cp .env.example .env
 ---
 
 ## Configure your environement
+
+### Install all dependencies
+
+just run the magic script
+```sh
+./scripts/setup.sh
+```
+
+This script should install:
+- docker
+- node
+- npm
+- nvm
+- scp
+- apt get
+- ffmpeg
+- python
+- opencv
 
 ### Paste your ssh public key in the video server
 
