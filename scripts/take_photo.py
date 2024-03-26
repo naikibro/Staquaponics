@@ -1,33 +1,19 @@
 # take_photo.py
-
-"""
-env variables:
-- CAMERA_ADRESS
-- IMAGES_FOLDER
-- SYSTEM_NAME
-
-this script takes a picture using opencv on the CAMERA_ADRESS and sotres it in IMAGES_FOLDER
-
-filetype example( 1080 * 720 ): 
-    YYYY-MM-DD-HH-MM-SYSTEM_NAME-image.jpg
-"""
-
 import cv2
 import os
 from datetime import datetime
+from environment import EnvironmentVariables
 
 # Environment variables
-CAMERA_ADDRESS = os.getenv('CAMERA_ADRESS', '0')  # Default to 0 if not set
-IMAGES_FOLDER = os.getenv('IMAGES_FOLDER', './images')
-SYSTEM_NAME = os.getenv('SYSTEM_NAME', 'STAQUAPONICS')
+env_vars = EnvironmentVariables()
 
 # Ensure IMAGES_FOLDER exists
-if not os.path.exists(IMAGES_FOLDER):
-    os.makedirs(IMAGES_FOLDER)
+if not os.path.exists(env_vars.IMAGES_FOLDER):
+    os.makedirs(env_vars.IMAGES_FOLDER)
 
 # Initialize camera
 # Assuming CAMERA_ADDRESS is the index; converting to integer
-camera = cv2.VideoCapture(int(CAMERA_ADDRESS))
+camera = cv2.VideoCapture(int(env_vars.CAMERA_ADDRESS))
 
 # Check if camera opened successfully
 if not camera.isOpened():
@@ -44,8 +30,14 @@ if not ret:
 
 # Generate filename
 current_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
-filename = f"{current_time}-{SYSTEM_NAME}-image.jpg"
-filepath = os.path.join(IMAGES_FOLDER, filename)
+filename_base = f"{current_time}-{env_vars.SYSTEM_NAME}-image"
+filepath = os.path.join(env_vars.IMAGES_FOLDER, filename_base + ".jpg")
+
+# Check if filename already exists, if yes, append a number
+counter = 1
+while os.path.exists(filepath):
+    filepath = os.path.join(env_vars.IMAGES_FOLDER, f"{filename_base}-{counter}.jpg")
+    counter += 1
 
 # Save image
 cv2.imwrite(filepath, frame)

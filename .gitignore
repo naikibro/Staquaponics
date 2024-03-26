@@ -1,5 +1,9 @@
 .env
 .env.local
 node_modules
-images
+images/*
+videos/*
 logs
+logs.*
+*.log
+__pycache__
