@@ -9,7 +9,7 @@ is_installed() {
 sudo apt-get update
 
 # Install packages if not already installed
-packages=("apt-get" "curl" "scp" "ffmpeg" "docker" "nodejs" "npm")
+packages=("docker" "nodejs" "npm" "ffmpeg" "python3" "python3-opencv" "openssh-client" "apt-transport-https" "ca-certificates" "curl" "gnupg-agent" "software-properties-common")
 
 for pkg in "${packages[@]}"; do
     if ! is_installed "$pkg"; then
@@ -28,4 +28,9 @@ else
     echo "nvm is already installed."
 fi
 
+nvm install --lts
+nvm use --lts
+
+# Restart the shell
 exec bash
+
