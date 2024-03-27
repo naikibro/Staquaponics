@@ -31,6 +31,7 @@ This project bundles a bunch of programs and scripts that form a simple and open
 Copy the project in your **Raspberry pi**
 
 ```sh
+cd ~/Desktop
 git clone git@github.com:naikibro/staquaponics.git
 ```
 
@@ -64,6 +65,7 @@ This script should install:
 - python
 - opencv
 
+***
 ### Paste your ssh public key in the video server
 
 This ensures that your system will have authorization to send files to the server via scp
@@ -77,18 +79,7 @@ ssh-keygen -t rsa -b 4096
 Then copy your public key into your video server
 
 ```sh
-ssh-copy-id username@your_vps_ip
-```
-
-### Build or fetch the armv7 docker cloudflare image ( optionnal )
-```sh
-git clone -b feature/support-armhf git@github.com:jeankhawand/cloudflared.git 
-```
-and then cd into project dir and run the following command:
-
-
-```sh
-docker build . -t junni/cloudflared:arm
+ssh-copy-id username@your_video_server_url_or_ip
 ```
 
 ## 3 - Configure your Cloudflare tunnel
@@ -97,9 +88,36 @@ Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=
 ```sh
 docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
 ```
-if your raspberry pi is on armv7 architecture
+
+### if your raspberry pi is on armv7 architecture
+
+```sh
+git clone -b feature/support-armhf git@github.com:jeankhawand/cloudflared.git 
+```
+
+```sh
+docker build . -t junni/cloudflared:arm
+```
+
 ```sh
 docker run -d junni/cloudflared:arm tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
 ```
 
+### Simplified docker compose images
+Once you have fetched and built the cloudflare image that corresponds to your architecture, you can run the [docker-compose.yml](docker-compose.yml) file 
 
+/!\ Dont forget to specify the image you want to use /!\
+```sh
+docker compose up -d
+```
+## 4 - Configure the cron jobs
+Launch this script to launch the Staquaponics application globally
+
+```sh
+./scripts/setup_cron.sh
+```
+This script should create the required jobs to: 
+- every 15 minutes from 6am to 6pm : take a photo
+- at the end of the day : compile the video
+- then : send the video to server
+- then : flush the data produced on this day
