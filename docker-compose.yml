@@ -14,6 +14,17 @@ services:
       - "8080:80"
     restart: always
 
+  postgresql:
+    image: postgres
+    ports:
+      - "5433:5433"
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+
+
 # Staquaponics - a simple Raspberry pi based timelapse monitoring solution for Aquaponics
 
 # This project bundles a bunch of programs and scripts that form a simple and open-source solution to monitor any Aquaponic facility with USB based cameras and Raspberry pi
