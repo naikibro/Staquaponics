@@ -86,6 +86,11 @@ ssh-copy-id username@your_video_server_url_or_ip
 ## 3 - Configure your Cloudflare tunnel
 Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=ey4u7OUAF3c)
 
+![cloudflare config](assets/cloudflareconfig.png)
+
+Replace 192.168.1.101 with the local adress of your raspy  
+Feel free to map as many ports and protocols as you need
+
 ```sh
 docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
 ```
