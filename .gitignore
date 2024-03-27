@@ -7,3 +7,28 @@ logs
 logs.*
 *.log
 __pycache__
+
+# Logs
+staquaponics/logs
+staquaponics/*.log
+staquaponics/npm-debug.log*
+staquaponics/yarn-debug.log*
+staquaponics/yarn-error.log*
+staquaponics/pnpm-debug.log*
+staquaponics/lerna-debug.log*
+
+staquaponics/node_modules
+staquaponics/dist
+staquaponics/dist-ssr
+staquaponics/*.local
+
+# Editor directories and files
+staquaponics/.vscode/*
+staquaponics/!.vscode/extensions.json
+staquaponics/.idea
+staquaponics/.DS_Store
+staquaponics/*.suo
+staquaponics/*.ntvs*
+staquaponics/*.njsproj
+staquaponics/*.sln
+staquaponics/*.sw?
