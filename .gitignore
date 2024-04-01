@@ -21,6 +21,7 @@ staquaponics/node_modules
 staquaponics/dist
 staquaponics/dist-ssr
 staquaponics/*.local
+staquaponics/public/videos/*.mp4
 
 # Editor directories and files
 staquaponics/.vscode/*
