@@ -11,8 +11,9 @@ function App() {
         if (!response.ok) {
           throw new Error(`Failed to fetch videos: ${response.status} ${response.statusText}`);
         }
-        const filenames = await response.json();
-        setVideos(filenames);
+        const videoObjects = await response.json();
+        console.log(videoObjects);
+        setVideos(videoObjects);
       } catch (error) {
         console.error('Error fetching videos:', error.message);
       }
@@ -24,14 +25,17 @@ function App() {
   return (
     <>
       <h1>Staquaponics</h1>
-      {videos.map((filename, index) => (
-        <div key={index}>
-          <h2>{filename}</h2>
-          <video controls>
-            <source src={`/videos/${filename}`} type="video/mp4" />
-            Your browser does not support the video tag.
-          </video>
-        </div>
+      {videos.map((video, index) => (
+        
+        (video.type === "mp4" && (
+          <div key={index}>
+            <h2>{video.name}</h2>
+            <video controls>
+              <source src={`/videos/${video.name}`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          </div>
+        ))
       ))}
     </>
   );

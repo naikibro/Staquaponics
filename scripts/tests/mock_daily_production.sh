@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Loop 10 times
-for i in {1..10}
+for i in {1..100}
 do
     /usr/bin/python3 /home/$USER/Desktop/Staquaponics/scripts/take_photo.py
 done
