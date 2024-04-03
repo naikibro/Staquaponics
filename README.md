@@ -16,16 +16,22 @@ This project bundles a bunch of programs and scripts that form a simple and open
 **Languages, tools and frameworks:**
 
 
-- **Docker compose :** to containerize the deployments of the
-- Python
-- OpenCV
-- Cron jobs
+- **Docker compose :** to containerize the deployments of the services
+- **Python :** for scripts and openCV
+- **OpenCV :** for imaging purposes
+- **Cron jobs :** automating our jobs
 
 **Operating system:**
 
 - Raspbian headless OS image **LTS**
+- or any flavour of Ubuntu above **18.04**
 
 ---
+# Architecture
+This project is a monorepo
+
+It contains a subrepo for the [webserver](staquaponics)  
+And all the scripts necessary in the [scripts](scripts) folder
 
 # Run this project
 
@@ -45,85 +51,8 @@ cp .env.example .env
 /!\ see [here]() to find how to fill the .env file /!\
 
 ---
+## 1 - Configure your raspberry pi
+Find out how to setup your raspberry pi [here](RASPBERRY.md)
 
-## Configure your environement
-
-## 1 - Install all dependencies
-
-just run the magic script
-```sh
-./scripts/setup.sh
-```
-
-This script should install all the [required dependencies](scripts/setup.sh):
-- docker
-- node
-- npm
-- nvm
-- scp
-- apt get
-- ffmpeg
-- python
-- opencv
-
-***
-## 2 - Paste your ssh public key in the video server
-
-This ensures that your system will have authorization to send files to the server via scp
-
-first create your ssh key if you dont have one
-
-```sh
-ssh-keygen -t rsa -b 4096
-```
-
-Then copy your public key into your video server
-
-```sh
-ssh-copy-id username@your_video_server_url_or_ip
-```
-
-## 3 - Configure your Cloudflare tunnel
-Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=ey4u7OUAF3c)
-
-![cloudflare config](assets/cloudflareconfig.png)
-
-Replace 192.168.1.101 with the local adress of your raspy  
-Feel free to map as many ports and protocols as you need
-
-```sh
-docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
-```
-
-### if your raspberry pi is on armv7 architecture
-
-```sh
-git clone -b feature/support-armhf git@github.com:jeankhawand/cloudflared.git 
-```
-
-```sh
-docker build . -t junni/cloudflared:arm
-```
-
-```sh
-docker run -d junni/cloudflared:arm tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
-```
-
-### Simplified docker compose images
-Once you have fetched and built the cloudflare image that corresponds to your architecture, you can run the [docker-compose.yml](docker-compose.yml) file 
-
-/!\ Dont forget to specify the image you want to use /!\
-```sh
-docker compose up -d
-```
-## 4 - Configure the cron jobs
-Launch this script to launch the Staquaponics application globally
-
-```sh
-./scripts/setup_cron.sh
-```
-This script should create the [required jobs](scripts/setup_cron.sh) to: 
-- every 15 minutes from 6am to 6pm : take a photo
-- at the end of the day : compile the video
-- then : send the video to server
-- then : flush the data produced on this day
+## 1 - Configure your video server
+Find out how to setup your video server [here](VIDEOSERVER.md)
