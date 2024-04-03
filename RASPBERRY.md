@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Staquaponics - Setup your Raspberry pi
 ![staquaponics](assets/Staquaponics.png)
 
@@ -59,7 +58,6 @@ CLOUDFLARE_TUNNEL_TOKEN=""
 
 # Configure your Raspberry pi environement
 
->>>>>>> f7c726226b7f9c0a92977c79c4d0e510be8cd0e9
 ## 1 - Install all dependencies
 
 just run the magic script
@@ -96,6 +94,7 @@ ssh-copy-id username@your_video_server_url_or_ip
 ```
 
 ## 3 - Configure your Cloudflare tunnel
+![cloudflare-config](assets/cloudflareconfig.png)
 Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=ey4u7OUAF3c)
 
 ```sh
@@ -127,7 +126,7 @@ docker compose up -d
 Launch this script to launch the Staquaponics application globally
 
 ```sh
-./scripts/setup_cron.sh
+./scripts/setup_cron.sh -client
 ```
 This script should create the required jobs to: 
 - every 15 minutes from 6am to 6pm : take a photo

@@ -54,3 +54,15 @@ CLOUDFLARE_TUNNEL_TOKEN=""
 ```
 
 Ensure that the **$SYSTEM_NAME** variables share the same values on the **RASPBERRY** and the **VIDEO SERVER**
+
+## 1 - Run the web server
+```sh
+cd ~/Desktop/Staquaponics/staquaponics
+npm run dev &&
+```
+## 2 - Run the web server on boot
+This script will setup the necessary cronjobs for the video server
+```sh
+cd ~/Desktop/Staquaponics
+./scripts/setup_cron.sh -server
+```
