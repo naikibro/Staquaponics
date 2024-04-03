@@ -2,6 +2,7 @@
 
 This project bundles a bunch of programs and scripts that form a simple and open-source solution to monitor any Aquaponic facility with USB based cameras and Raspberry pi
 
+![staquaponics](assets/Staquaponics.png)
 ---
 
 ## Requirements
@@ -26,7 +27,7 @@ This project bundles a bunch of programs and scripts that form a simple and open
 
 ---
 
-## Run this project
+# Run this project
 
 Copy the project in your **Raspberry pi**
 
@@ -47,14 +48,14 @@ cp .env.example .env
 
 ## Configure your environement
 
-### Install all dependencies
+## 1 - Install all dependencies
 
 just run the magic script
 ```sh
 ./scripts/setup.sh
 ```
 
-This script should install:
+This script should install all the [required dependencies](scripts/setup.sh):
 - docker
 - node
 - npm
@@ -66,7 +67,7 @@ This script should install:
 - opencv
 
 ***
-### Paste your ssh public key in the video server
+## 2 - Paste your ssh public key in the video server
 
 This ensures that your system will have authorization to send files to the server via scp
 
@@ -84,6 +85,11 @@ ssh-copy-id username@your_video_server_url_or_ip
 
 ## 3 - Configure your Cloudflare tunnel
 Find how to setup your cloudflare tunnel [here](https://www.youtube.com/watch?v=ey4u7OUAF3c)
+
+![cloudflare config](assets/cloudflareconfig.png)
+
+Replace 192.168.1.101 with the local adress of your raspy  
+Feel free to map as many ports and protocols as you need
 
 ```sh
 docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token your-cloudfare-tunnel-token
@@ -116,7 +122,7 @@ Launch this script to launch the Staquaponics application globally
 ```sh
 ./scripts/setup_cron.sh
 ```
-This script should create the required jobs to: 
+This script should create the [required jobs](scripts/setup_cron.sh) to: 
 - every 15 minutes from 6am to 6pm : take a photo
 - at the end of the day : compile the video
 - then : send the video to server
