@@ -20,13 +20,23 @@ This project bundles a bunch of programs and scripts that form a simple and open
 - **Python :** for scripts and openCV
 - **OpenCV :** for imaging purposes
 - **Cron jobs :** automating our jobs
+- **Docker compose :** to containerize the deployments of the services
+- **Python :** for scripts and openCV
+- **OpenCV :** for imaging purposes
+- **Cron jobs :** automating our jobs
 
 **Operating system:**
 
 - Raspbian headless OS image **LTS**
 - or any flavour of Ubuntu above **18.04**
+- or any flavour of Ubuntu above **18.04**
 
 ---
+# Architecture
+This project is a monorepo
+
+It contains a subrepo for the [webserver](staquaponics)  
+And all the scripts necessary in the [scripts](scripts) folder
 # Architecture
 This project is a monorepo
 

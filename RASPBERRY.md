@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Staquaponics - Setup your Raspberry pi
 ![staquaponics](assets/Staquaponics.png)
 
@@ -54,6 +55,11 @@ LOCAL_NETWORK="192.168.1.1"
 VIDEO_SERVER_URL="" #Paste your video server IP adress or public URL
 CLOUDFLARE_TUNNEL_TOKEN=""
 ```
+=======
+
+# Configure your Raspberry pi environement
+
+>>>>>>> f7c726226b7f9c0a92977c79c4d0e510be8cd0e9
 ## 1 - Install all dependencies
 
 just run the magic script
