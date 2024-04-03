@@ -24,7 +24,7 @@ echo "$envVar" | crontab -
 # Define the commands
 command1="*/15 6-18 * * * /usr/bin/python3 /home/$USER/Desktop/Staquaponics/scripts/take_photo.py"
 command2="59 17 * * * /bin/bash /home/$USER/Desktop/Staquaponics/scripts/sync.sh"
-command3="@reboot cd /home/$USER/Desktop/Staquaponics/staquaponics/ && npm run dev"
+command3="@reboot cd /home/$USER/Desktop/Staquaponics/staquaponics/ && nohup npm run dev &"
 
 # Check flags and add commands to crontab as necessary
 {
