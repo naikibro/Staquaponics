@@ -1,48 +1,64 @@
-# take_photo.py
 import cv2
 import os
 from datetime import datetime
+import logging
 from environment import EnvironmentVariables
 
-# Environment variables
-env_vars = EnvironmentVariables()
+def take_photo(IMAGES_FOLDER, SYSTEM_NAME, CAMERA_ADDRESS):
 
-# Ensure IMAGES_FOLDER exists
-if not os.path.exists(env_vars.IMAGES_FOLDER):
-    os.makedirs(env_vars.IMAGES_FOLDER)
+    IMAGES_FOLDER = os.path.expandvars(IMAGES_FOLDER)
 
-# Initialize camera
-# Assuming CAMERA_ADDRESS is the index; converting to integer
-camera = cv2.VideoCapture(int(env_vars.CAMERA_ADDRESS))
+    # Configure logging
+    log_file = '/home/naiki/Desktop/Staquaponics/logs.txt'
+    logging.basicConfig(filename=log_file, level=logging.DEBUG, format='%(asctime)s - %(levelname)s: %(message)s')
 
-# Check if camera opened successfully
-if not camera.isOpened():
-    print("Error: Could not open camera")
-    exit()
+    # Ensure IMAGES_FOLDER exists
+    if not os.path.exists(IMAGES_FOLDER):
+        os.makedirs(IMAGES_FOLDER)
 
-# Capture a frame
-ret, frame = camera.read()
+    # Initialize camera
+    # Assuming CAMERA_ADDRESS is the index; converting to integer
+    camera = cv2.VideoCapture(int(CAMERA_ADDRESS))
 
-# Check if frame is captured
-if not ret:
-    print("Error: Could not read frame")
-    exit()
+    # Check if camera opened successfully
+    if not camera.isOpened():
+        logging.error("Error: Could not open camera")
+        exit()
 
-# Generate filename
-current_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
-filename_base = f"{current_time}-{env_vars.SYSTEM_NAME}-image"
-filepath = os.path.join(env_vars.IMAGES_FOLDER, filename_base + ".jpg")
+    # Capture a frame
+    ret, frame = camera.read()
 
-# Check if filename already exists, if yes, append a number
-counter = 1
-while os.path.exists(filepath):
-    filepath = os.path.join(env_vars.IMAGES_FOLDER, f"{filename_base}-{counter}.jpg")
-    counter += 1
+    # Check if frame is captured
+    if not ret:
+        logging.error("Error: Could not read frame")
+        exit()
 
-# Save image
-cv2.imwrite(filepath, frame)
+    # Generate filename
+    current_time = datetime.now().strftime('%Y-%m-%d-%H-%M')
+    filename_base = f"{current_time}-{SYSTEM_NAME}-image"
+    filepath = os.path.join(IMAGES_FOLDER, filename_base + ".jpg")
+    print(filepath)
 
-# Release the camera
-camera.release()
+    # Check if filename already exists, if yes, append a number
+    counter = 1
+    while os.path.exists(filepath):
+        filepath = os.path.join(IMAGES_FOLDER, f"{filename_base}-{counter}.jpg")
+        counter += 1
 
-print(f"Image saved to {filepath}")
+    # Save image
+    cv2.imwrite(filepath, frame)
+
+    # Release the camera
+    camera.release()
+
+    logging.info(f"Image saved to {filepath}")
+
+def main():
+    # Load environment variables
+    env = EnvironmentVariables()
+
+    # Compile images to video
+    take_photo(env.IMAGES_FOLDER, env.SYSTEM_NAME, env.CAMERA_ADDRESS)
+
+if __name__ == "__main__":
+    main()
